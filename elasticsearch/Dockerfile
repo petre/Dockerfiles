@@ -22,7 +22,9 @@ ENV PATH /usr/share/elasticsearch/bin:$PATH
 VOLUME /usr/share/elasticsearch/data
 VOLUME /usr/share/elasticsearch/config
 
+#Installing elasticsearch plugins
 RUN /usr/share/elasticsearch/bin/plugin --install mobz/elasticsearch-head
+RUN /usr/share/elasticsearch/bin/plugin --install lmenezes/elasticsearch-kopf
 
 COPY docker-entrypoint.sh /
 
@@ -32,4 +34,4 @@ EXPOSE 9200
 
 CMD ["elasticsearch"]
 
-#sudo docker run -t -i -p 127.0.0.1:9200:9200 -v /data/es0:/usr/share/elasticsearch/data -v /data/docker_configs/es0:/usr/share/elasticsearch/config petre/elasticsearch:1.5 /bin/bash
+#sudo docker run -t -i -p 9200:9200 -v /data/es0:/usr/share/elasticsearch/data -v /data/docker_configs/es0:/usr/share/elasticsearch/config petre/elasticsearch:1.5 /bin/bash
