@@ -1,8 +1,5 @@
 # Version: 0.0.1
-FROM petre/oracle_java:7u75
-
-# add our user and group first to make sure their IDs get assigned consistently
-#RUN groupadd -r elasticsearch && useradd -r -g elasticsearch elasticsearch
+FROM petre/oracle_jre:7u79
 
 ENV ELASTICSEARCH_VERSION 1.5
 ENV ES_GROUP elasticsearch
@@ -15,7 +12,7 @@ RUN echo "baseurl=http://packages.elasticsearch.org/elasticsearch/$ELASTICSEARCH
 RUN echo "gpgcheck=1" >> /etc/yum.repos.d/elasticsearch.repo
 RUN echo "gpgkey=http://packages.elasticsearch.org/GPG-KEY-elasticsearch" >> /etc/yum.repos.d/elasticsearch.repo
 RUN echo "enabled=1" >> /etc/yum.repos.d/elasticsearch.repo
-RUN yum install -y elasticsearch
+RUN yum install -y elasticsearch && yum clean all
 
 ENV PATH /usr/share/elasticsearch/bin:$PATH
 
@@ -26,7 +23,7 @@ VOLUME /usr/share/elasticsearch/config
 RUN /usr/share/elasticsearch/bin/plugin --install mobz/elasticsearch-head
 RUN /usr/share/elasticsearch/bin/plugin --install lmenezes/elasticsearch-kopf
 
-COPY docker-entrypoint.sh /
+COPY ./docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
