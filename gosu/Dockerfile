@@ -4,11 +4,6 @@
 # a docker container.
 FROM centos:7
 
-#Disable ipv6 for the moment
-RUN echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
-RUN echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
-RUN echo "net.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
-
 ENV GOSU_VERSION 1.4
 
 # grab gosu for easy step-down from root
